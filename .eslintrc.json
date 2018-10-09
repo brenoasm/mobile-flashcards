@@ -1,0 +1,35 @@
+{
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "env": {
+    "node": true,
+    "browser": false,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "react",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "linebreak-style": 0,
+    "quotes": [ 2, "single" ]
+  },
+  "overrides": [
+      {
+        "files": [ "bin/*.js", "lib/*.js" ],
+        "excludedFiles": "*.test.js",
+        "rules": {
+          "react/prefer-stateless-function": [0, { "ignorePureComponents": true }]
+        }
+      }
+  ]
+}
