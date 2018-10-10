@@ -16,7 +16,6 @@ const defaultProps = {
 };
 
 const DeckRow = ({ deck, onPress }) => {
-  console.log('THEME===', theme)
   return (
     <Fragment>
       {deck && (

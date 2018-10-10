@@ -1,18 +1,20 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { Fragment } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
 import CustomStatusBar from './CustomStatusBar';
 import CustomStackNavigator from './CustomStackNavigator';
 
-class App extends React.Component {
-  render() {
-    return (
+const App = ({ loading }) => (
+  <Fragment>
+    {loading ? (
+      <ActivityIndicator size="large" />
+    ) : (
       <View style={{ flex: 1 }}>
         <CustomStatusBar />
         <CustomStackNavigator />
       </View>
-    );
-  }
-}
+    )}
+  </Fragment>
+);
 
 export default App;

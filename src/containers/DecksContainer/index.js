@@ -31,7 +31,8 @@ class DecksContainer extends Component {
     const { navigation } = this.props;
 
     navigation.navigate('DeckDetail', {
-      deckId: deck.id
+      deckId: deck.id,
+      deckTitle: deck.title
     });
   };
 

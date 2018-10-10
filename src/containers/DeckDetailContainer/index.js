@@ -1,20 +1,53 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { getDeck } from '../../selectors/deckSelector';
+import { getDeckCards } from '../../selectors/cardSelector';
 
 import DeckDetail from '../../components/DeckDetail';
 
 class DeckDetailContainer extends Component {
-  componentDidMount() {
-    const { navigation } = this.props;
-    const { deckId } = navigation.state.params;
+  static navigationOptions = ({ navigation }) => {
+    const { deckTitle } = navigation.state.params;
 
-    console.log('DECK_ID===', deckId)
+    return {
+      title: deckTitle
+    }
   }
 
+  goToAddCard = deckId => {
+    const { navigation } = this.props;
+
+    navigation.navigate('CardForm', { deckId });
+  };
+
+  goToQuiz = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Quiz');
+  };
+
   render() {
+    const { deck, cards } = this.props;
+
     return (
-      <DeckDetail />
-    )
+      <DeckDetail
+        deck={deck}
+        cards={cards}
+        goToAddCard={this.goToAddCard}
+        goToQuiz={this.goToQuiz}
+      />
+    );
   }
 }
 
-export default DeckDetailContainer;
+const mapStateToProps = ({ deckState, cardState }, { navigation }) => {
+  const { deckId } = navigation.state.params;
+
+  return {
+    deck: getDeck(deckId, deckState),
+    cards: getDeckCards(deckId, cardState)
+  };
+};
+
+export default connect(mapStateToProps)(DeckDetailContainer);
