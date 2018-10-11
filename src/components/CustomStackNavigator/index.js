@@ -2,7 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 
 import DecksContainer from '../../containers/DecksContainer';
 import DeckDetailContainer from '../../containers/DeckDetailContainer';
-import CardFormContainer from '../../containers/CardFormContainer';
+import CardFormScreen from '../../screens/CardFormScreen';
 
 const CustomStackNavigator = createStackNavigator({
   Decks: {
@@ -12,7 +12,7 @@ const CustomStackNavigator = createStackNavigator({
     screen: DeckDetailContainer
   },
   CardForm: {
-    screen: CardFormContainer,
+    screen: CardFormScreen,
   }
 });
 

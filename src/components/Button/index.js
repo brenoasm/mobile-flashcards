@@ -15,11 +15,13 @@ const defaultProps = {
   onPress: () => {},
   text: 'Click me',
   buttonStyle: {},
-  buttonTextStyle: {}
+  buttonTextStyle: {},
+  disabled: false
 };
 
-const Button = ({ onPress, text, buttonStyle, buttonTextStyle }) => (
+const Button = ({ onPress, text, buttonStyle, buttonTextStyle, disabled }) => (
   <TouchableOpacity
+    disabled={disabled}
     onPress={() => onPress()}
     style={{ ...styles.btnStyle, ...buttonStyle }}
   >

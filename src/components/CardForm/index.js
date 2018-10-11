@@ -1,38 +1,82 @@
-import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
-import PropTypes from 'prop-types';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import PropTypes from "prop-types";
 
-import theme from '../../theme';
+import theme from "../../theme";
 
-import Button from '../Button';
+import Button from "../Button";
+import CustomTextInput from "../CustomTextInput";
 
-const propTypes = {};
+const propTypes = {
+  disabledSubmit: PropTypes.bool,
+  handleClearForm: PropTypes.func,
+  handleInput: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  properties: PropTypes.object
+};
 
-const defaultProps = {};
+const defaultProps = {
+  disabledSubmit: true,
+  handleClearForm: () => {},
+  handleInput: () => {},
+  handleSubmit: () => {},
+  properties: {}
+};
 
-const CardForm = ({}) => {
+const CardForm = ({
+  disabledSubmit,
+  handleClearForm,
+  handleInput,
+  handleSubmit,
+  properties
+}) => {
+  const { question, answer } = properties;
+  const errors =
+    Object.keys(properties).length > 0
+      ? Object.keys(properties).reduce((newArray, propName) => {
+          const prop = properties[propName];
+
+          return {
+            ...newArray,
+            ...prop.errors
+          };
+        }, {})
+      : [];
+
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
         <View style={styles.formControl}>
           <Text style={styles.formText}>Question</Text>
-          <TextInput
+          <CustomTextInput
             underlineColorAndroid={theme.white}
             style={styles.formField}
             maxLength={255}
+            onChange={handleInput}
+            name={question ? question.name : ""}
+            value={question ? question.value : ""}
           />
         </View>
         <View style={styles.formControl}>
           <Text style={styles.formText}>Answer</Text>
-          <TextInput
+          <CustomTextInput
             underlineColorAndroid={theme.white}
             style={styles.formField}
             maxLength={255}
+            onChange={handleInput}
+            name={answer ? answer.name : ""}
+            value={answer ? answer.value : ""}
           />
         </View>
       </View>
       <View style={styles.actionContainer}>
-        <Button text="Save a new flashcard" />
+        {errors.length > 0 && errors.map(error => <Text>{error}</Text>)}
+        <Button
+          onPress={handleSubmit}
+          disabled={disabledSubmit}
+          buttonStyle={disabledSubmit ? { opacity: 0.5 } : {}}
+          text="Save a new flashcard"
+        />
       </View>
     </View>
   );
@@ -41,8 +85,8 @@ const CardForm = ({}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: theme.primaryColor
   },
   formControl: {
@@ -61,12 +105,12 @@ const styles = StyleSheet.create({
   },
   actionContainer: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: "center"
   },
   formContainer: {
     flex: 2,
-    justifyContent: 'space-around',
-    alignItems: 'center'
+    justifyContent: "space-around",
+    alignItems: "center"
   }
 });
 
