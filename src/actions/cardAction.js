@@ -11,7 +11,15 @@ export const submit = (propertiesToSubmit, navigate) => dispatch => {
   // Adicionar card no AsyncStorage
 
   dispatch(createCard(card));
-  return navigate('Decks');
+
+  navigate('ConfirmationScreen', {
+    questionText: 'Card successfully submited! Do you want to create another Card?',
+    confirmationButtonText: 'Yes, I want to continue',
+    cancelButtonText: 'No, I want to go back',
+    onConfirm: () => navigate('CardForm', {
+      deckId: card.belongingDeckId
+    }),
+  });
 };
 
 export const createCard = card => ({

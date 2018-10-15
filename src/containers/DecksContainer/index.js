@@ -27,6 +27,12 @@ class DecksContainer extends Component {
     });
   };
 
+  goToDeckForm = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('DeckForm');
+  };
+
   onDeckPress = deck => {
     const { navigation } = this.props;
 
@@ -60,7 +66,11 @@ class DecksContainer extends Component {
       <Fragment>
         {Array.isArray(decks) &&
           decks.length > 0 && (
-            <Decks decks={decks} onDeckPress={this.onDeckPress} />
+            <Decks
+              decks={decks}
+              onDeckPress={this.onDeckPress}
+              goToDeckForm={this.goToDeckForm}
+            />
           )}
       </Fragment>
     );

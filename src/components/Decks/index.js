@@ -9,15 +9,17 @@ import FloatingActionButton from '../FloatingActionButton';
 
 const propTypes = {
   decks: PropTypes.array,
-  onDeckPress: PropTypes.func
+  onDeckPress: PropTypes.func,
+  goToDeckForm: PropTypes.func
 };
 
 const defaultProps = {
   decks: null,
-  onDeckPress: () => {}
+  onDeckPress: () => {},
+  goToDeckForm: () => {}
 };
 
-const Decks = ({ decks, onDeckPress }) => (
+const Decks = ({ decks, onDeckPress, goToDeckForm }) => (
   <Fragment>
     <ScrollView style={{ backgroundColor: theme.primaryColor }}>
       {decks &&
@@ -25,7 +27,7 @@ const Decks = ({ decks, onDeckPress }) => (
           <DeckRow onPress={onDeckPress} deck={deck} key={deck.id} />
         ))}
     </ScrollView>
-    <FloatingActionButton />
+    <FloatingActionButton onPress={goToDeckForm} />
   </Fragment>
 );
 

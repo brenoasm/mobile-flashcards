@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
+import { compose } from 'redux';
 
 import theme from "../../theme";
 
@@ -43,6 +44,11 @@ const CardForm = ({
         }, {})
       : [];
 
+  const composedSubmit = compose(
+    handleClearForm,
+    handleSubmit
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
@@ -72,7 +78,7 @@ const CardForm = ({
       <View style={styles.actionContainer}>
         {errors.length > 0 && errors.map(error => <Text>{error}</Text>)}
         <Button
-          onPress={handleSubmit}
+          onPress={composedSubmit}
           disabled={disabledSubmit}
           buttonStyle={disabledSubmit ? { opacity: 0.5 } : {}}
           text="Save a new flashcard"

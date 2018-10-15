@@ -44,7 +44,8 @@ const styles = {
   },
   btnTextStyle: {
     color: theme.white,
-    fontSize: 24
+    fontSize: 24,
+    textAlign: 'center'
   }
 };
 
