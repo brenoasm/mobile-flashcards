@@ -1,15 +1,15 @@
-import { CREATE_DECK } from '../actions';
+import { CREATE_DECK, HANDLE_DECKS } from '../actions';
 
 const deckState = {
   decks: [
-    {
-      id: '1',
-      title: 'React'
-    },
-    {
-      id: '2',
-      title: 'Javascript'
-    }
+    // {
+    //   id: '1',
+    //   title: 'React'
+    // },
+    // {
+    //   id: '2',
+    //   title: 'Javascript'
+    // }
   ],
   formProperties: {
     id: {
@@ -33,6 +33,12 @@ export default DeckReducer = (state = deckState, action) => {
           ...state.decks,
           action.payload
         ]
+      }
+
+    case HANDLE_DECKS:
+      return {
+        ...state,
+        decks: action.payload
       }
 
     default:

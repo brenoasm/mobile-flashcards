@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 
 import DecksContainer from '../../containers/DecksContainer';
 import DeckDetailContainer from '../../containers/DeckDetailContainer';
+import QuizContainer from '../../containers/QuizContainer';
 
 import ConfirmationScreen from '../ConfirmationScreen';
 
@@ -23,6 +24,12 @@ const CustomStackNavigator = createStackNavigator({
   },
   ConfirmationScreen: {
     screen: ConfirmationScreen,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+  Quiz: {
+    screen: QuizContainer,
     navigationOptions: {
       headerLeft: null
     }

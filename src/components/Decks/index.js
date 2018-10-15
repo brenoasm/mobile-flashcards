@@ -6,6 +6,7 @@ import theme from '../../theme';
 
 import DeckRow from '../DeckRow';
 import FloatingActionButton from '../FloatingActionButton';
+import NoDecksFound from '../NoDecksFound';
 
 const propTypes = {
   decks: PropTypes.array,
@@ -22,10 +23,13 @@ const defaultProps = {
 const Decks = ({ decks, onDeckPress, goToDeckForm }) => (
   <Fragment>
     <ScrollView style={{ backgroundColor: theme.primaryColor }}>
-      {decks &&
+      {decks && decks.length > 0 ? (
         decks.map(deck => (
           <DeckRow onPress={onDeckPress} deck={deck} key={deck.id} />
-        ))}
+        ))
+      ) : (
+        <NoDecksFound />
+      )}
     </ScrollView>
     <FloatingActionButton onPress={goToDeckForm} />
   </Fragment>

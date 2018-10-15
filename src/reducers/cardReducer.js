@@ -1,26 +1,26 @@
-import { CREATE_CARD } from '../actions';
+import { CREATE_CARD, HANDLE_CARDS } from '../actions';
 
 const cardState = {
   cards: [
-    {
-      id: '1',
-      belongingDeckId: '1',
-      question: 'What is React?',
-      answer: 'A library for managing user interfaces'
-    },
-    {
-      id: '2',
-      belongingDeckId: '1',
-      question: 'Where do you make Ajax requests in React?',
-      answer: 'The componentDidMount lifecycle event'
-    },
-    {
-      id: '3',
-      belongingDeckId: '2',
-      question: 'What is a closure?',
-      answer:
-        'The combination of a function and the lexical environment within which that function was declared.'
-    }
+    // {
+    //   id: '1',
+    //   belongingDeckId: '1',
+    //   question: 'What is React?',
+    //   answer: 'A library for managing user interfaces'
+    // },
+    // {
+    //   id: '2',
+    //   belongingDeckId: '1',
+    //   question: 'Where do you make Ajax requests in React?',
+    //   answer: 'The componentDidMount lifecycle event'
+    // },
+    // {
+    //   id: '3',
+    //   belongingDeckId: '2',
+    //   question: 'What is a closure?',
+    //   answer:
+    //     'The combination of a function and the lexical environment within which that function was declared.'
+    // }
   ],
   formProperties: {
     id: {
@@ -53,6 +53,12 @@ export default CardReducer = (state = cardState, action) => {
           ...state.cards,
           action.payload
         ]
+      }
+
+    case HANDLE_CARDS:
+      return {
+        ...state,
+        cards: action.payload
       }
 
     default:

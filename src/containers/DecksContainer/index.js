@@ -1,8 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import { getDecks } from '../../selectors/deckSelector';
+
+import { getDecksFromStore } from '../../actions/deckAction';
+
 import { getCards } from '../../selectors/cardSelector';
+
+import { getCardsFromStore } from '../../actions/cardAction';
 
 import Decks from '../../components/Decks';
 
@@ -43,16 +49,14 @@ class DecksContainer extends Component {
   };
 
   componentDidMount() {
-    const { decks, cards } = this.props;
-
-    this.setupDecks(decks, cards);
+    this.props.loadStore();
   }
 
   componentDidUpdate(prevProps) {
     const { decks, cards } = this.props;
 
     if (
-      prevProps.decks.length !== decks.length ||
+      (decks && cards && prevProps.decks.length !== decks.length) ||
       prevProps.cards.length !== cards.length
     ) {
       this.setupDecks(decks, cards);
@@ -63,16 +67,11 @@ class DecksContainer extends Component {
     const { decks } = this.state;
 
     return (
-      <Fragment>
-        {Array.isArray(decks) &&
-          decks.length > 0 && (
-            <Decks
-              decks={decks}
-              onDeckPress={this.onDeckPress}
-              goToDeckForm={this.goToDeckForm}
-            />
-          )}
-      </Fragment>
+      <Decks
+        decks={decks}
+        onDeckPress={this.onDeckPress}
+        goToDeckForm={this.goToDeckForm}
+      />
     );
   }
 }
@@ -82,4 +81,14 @@ const mapStateToProps = ({ deckState, cardState }) => ({
   cards: getCards(cardState)
 });
 
-export default connect(mapStateToProps)(DecksContainer);
+const mapDispatchToProps = dispatch => ({
+  loadStore: compose(
+    () => dispatch(getDecksFromStore()),
+    () => dispatch(getCardsFromStore())
+  )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DecksContainer);
