@@ -10,6 +10,11 @@ import { getCards } from '../../selectors/cardSelector';
 
 import { getCardsFromStore } from '../../actions/cardAction';
 
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from '../../utils/storage';
+
 import Decks from '../../components/Decks';
 
 class DecksContainer extends Component {
@@ -50,6 +55,8 @@ class DecksContainer extends Component {
 
   componentDidMount() {
     this.props.loadStore();
+    clearLocalNotification()
+      .then(setLocalNotification());
   }
 
   componentDidUpdate(prevProps) {
