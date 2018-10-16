@@ -30,12 +30,8 @@ export const submitDeck = (propertiesToSubmit, navigate) => dispatch => {
     .then(() => {
       dispatch(createDeck(deck));
 
-      return navigate('ConfirmationScreen', {
-        questionText:
-          'Deck successfully submited! Do you want to create another Deck?',
-        confirmationButtonText: 'Yes, I want to continue',
-        cancelButtonText: 'No, I want to go back',
-        onConfirm: () => navigate('DeckForm')
+      return navigate('DeckDetail', {
+        deckId: deck.id
       });
     })
     .catch(err => console.error('Erro ao cadastrar um novo baralho', err));

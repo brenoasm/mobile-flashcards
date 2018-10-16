@@ -1,37 +1,64 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from '../../utils/storage';
 
 import theme from '../../theme';
 
 import Button from '../Button';
 
-const propTypes = {};
+const propTypes = {
+  totalCorrectAnswers: PropTypes.number,
+  totalIncorrectAnswers: PropTypes.number,
+  totalAnswers: PropTypes.number,
+  goToDeck: PropTypes.func,
+  playAgain: PropTypes.func
+};
 
-const defaultProps = {};
+const defaultProps = {
+  totalCorrectAnswers: 0,
+  totalIncorrectAnswers: 0,
+  totalAnswers: 0,
+  goToDeck: () => {},
+  playAgain: () => {}
+};
 
-const QuizResult = ({
-  totalCorrectAnswers,
-  totalIncorrectAnswers,
-  totalAnswers,
-  goToHome,
-  playAgain
-}) => (
-  <View style={styles.container}>
-    <Text style={styles.resultText}>
-      You scored {totalCorrectAnswers} and missed {totalIncorrectAnswers} from{' '}
-      {totalAnswers} answer(s). Wanna play again?
-    </Text>
-    <View>
-      <Button text="Go to main screen" onPress={goToHome} />
-      <Button
-        buttonStyle={{ backgroundColor: 'green', marginTop: 10 }}
-        text="Play again"
-        onPress={playAgain}
-      />
-    </View>
-  </View>
-);
+class QuizResult extends PureComponent {
+  componentDidMount() {
+    clearLocalNotification()
+      .then(setLocalNotification());
+  }
+
+  render() {
+    const {
+      totalCorrectAnswers,
+      totalIncorrectAnswers,
+      totalAnswers,
+      goToDeck,
+      playAgain
+    } = this.props;
+    return (
+      <View style={styles.container}>
+        <Text style={styles.resultText}>
+          You scored {totalCorrectAnswers} and missed {totalIncorrectAnswers}{' '}
+          from {totalAnswers} answer(s). Wanna play again?
+        </Text>
+        <View>
+          <Button text="Go to the Deck Screen" onPress={goToDeck} />
+          <Button
+            buttonStyle={{ backgroundColor: 'green', marginTop: 10 }}
+            text="Play again"
+            onPress={playAgain}
+          />
+        </View>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

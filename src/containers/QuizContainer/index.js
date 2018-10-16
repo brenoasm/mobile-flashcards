@@ -29,10 +29,12 @@ class QuizContainer extends Component {
   theQuizIsOver = ({ totalAnsweredCards, totalCards }) =>
     totalAnsweredCards === totalCards;
 
-  goToHome = () => {
+  goToDeck = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Decks');
+    navigation.navigate('DeckDetail', {
+      deckId: navigation.state.params.deckId
+    });
   }
 
   playAgain = () => {
@@ -56,7 +58,7 @@ class QuizContainer extends Component {
       totalIncorrectAnswers
     } = this.props;
 
-    const { theQuizIsOver, goToHome, playAgain } = this;
+    const { theQuizIsOver, goToDeck, playAgain } = this;
 
     return (
       <Fragment>
@@ -75,7 +77,7 @@ class QuizContainer extends Component {
             totalCorrectAnswers={totalCorrectAnswers}
             totalIncorrectAnswers={totalIncorrectAnswers}
             totalAnswers={totalAnsweredCards}
-            goToHome={goToHome}
+            goToDeck={goToDeck}
             playAgain={playAgain}
           />
         ) : (

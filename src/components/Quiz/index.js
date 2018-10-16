@@ -41,7 +41,7 @@ const Quiz = ({
   return (
     <View style={styles.container}>
       <Text style={styles.cardsLeft}>
-        {totalAnsweredCards}/{totalCards}
+        {totalAnsweredCards + 1}/{totalCards}
       </Text>
       <View style={styles.content}>
         <View style={styles.questionContainer}>

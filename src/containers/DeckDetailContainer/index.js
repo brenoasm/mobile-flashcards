@@ -21,10 +21,10 @@ class DeckDetailContainer extends Component {
     navigation.navigate('CardForm', { deckId });
   };
 
-  goToQuiz = cards => {
+  goToQuiz = (deckId, cards) => {
     const { navigation } = this.props;
 
-    navigation.navigate('Quiz', { cards });
+    navigation.navigate('Quiz', { deckId, cards });
   };
 
   render() {
@@ -35,7 +35,7 @@ class DeckDetailContainer extends Component {
         deck={deck}
         cards={cards}
         goToAddCard={this.goToAddCard}
-        goToQuiz={() => this.goToQuiz(cards)}
+        goToQuiz={() => this.goToQuiz(deck.id, cards)}
       />
     );
   }

@@ -1,16 +1,9 @@
 import { CREATE_DECK, HANDLE_DECKS } from '../actions';
 
+import { validValue } from '../utils/validations';
+
 const deckState = {
-  decks: [
-    // {
-    //   id: '1',
-    //   title: 'React'
-    // },
-    // {
-    //   id: '2',
-    //   title: 'Javascript'
-    // }
-  ],
+  decks: [],
   formProperties: {
     id: {
       isFormField: false,
@@ -18,7 +11,7 @@ const deckState = {
     },
     title: {
       isFormField: true,
-      validations: [],
+      validations: [validValue],
       isValid: null
     }
   }
