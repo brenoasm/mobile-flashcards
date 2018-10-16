@@ -1,6 +1,6 @@
 import { uuid } from '../utils/uuid-generator';
 
-import { getCards } from '../utils/storage';
+import { getCards, saveCard } from '../utils/storage';
 
 import { CREATE_CARD, HANDLE_CARDS } from './';
 
@@ -21,20 +21,22 @@ export const submit = (propertiesToSubmit, navigate) => dispatch => {
     id: uuid()
   };
 
-  // Adicionar card no AsyncStorage
+  return saveCard(card)
+    .then(() => {
+      dispatch(createCard(card));
 
-  dispatch(createCard(card));
-
-  navigate('ConfirmationScreen', {
-    questionText:
-      'Card successfully submited! Do you want to create another Card?',
-    confirmationButtonText: 'Yes, I want to continue',
-    cancelButtonText: 'No, I want to go back',
-    onConfirm: () =>
-      navigate('CardForm', {
-        deckId: card.belongingDeckId
-      })
-  });
+      return navigate('ConfirmationScreen', {
+        questionText:
+          'Card successfully submited! Do you want to create another Card?',
+        confirmationButtonText: 'Yes, I want to continue',
+        cancelButtonText: 'No, I want to go back',
+        onConfirm: () =>
+          navigate('CardForm', {
+            deckId: card.belongingDeckId
+          })
+      });
+    })
+    .catch(err => console.error('Erro ao cadastrar novo card', err));
 };
 
 export const createCard = card => ({
